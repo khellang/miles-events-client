@@ -1,0 +1,4 @@
+{:open-url         false
+ :client-log-level :warning
+ :ring-handler     figwheel-server.core/handler
+ :css-dirs         ["resources/public/css"]}

@@ -1,0 +1,32 @@
+{
+  "name": "miles-events",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "sass:compile": "node-sass-chokidar --source-map true sass/ -o resources/public/css",
+    "sass:autoprefixer": "postcss resources/public/css/*.css --use autoprefixer -d resources/public/css",
+    "sass:build": "npm-run-all -p sass:compile sass:autoprefixer",
+    "sass:watch": "chokidar 'sass/**/*.scss' -c 'npm run sass:build'",
+    "dev:build": "webpack --mode development && clj -A:dev -R:dev",
+    "dist:build": "webpack && clj -A:dist -R:dist",
+    "dev": "npm-run-all -p sass:watch dev:build",
+    "dist": "npm-run-all -p sass:build dist:build"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.1.5",
+    "chokidar-cli": "^1.2.1",
+    "node-sass-chokidar": "^1.3.4",
+    "npm-run-all": "^4.1.3",
+    "postcss-cli": "^6.0.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "semantic-ui-react": "^0.82.5",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.1"
+  },
+  "browserslist": [
+    ">1%",
+    "not ie 11",
+    "not op_mini all"
+  ]
+}

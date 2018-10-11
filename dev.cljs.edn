@@ -1,0 +1,4 @@
+^{:npm        {:bundles {"dist/bundle.development.js" "src/js/index.js"}}
+  :watch-dirs ["src/clj" "src/cljs"]}
+{:main            miles-events.core
+ :closure-defines {goog.DEBUG true}}
