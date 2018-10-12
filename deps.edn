@@ -13,7 +13,7 @@
            ;; Utilities
            camel-snake-kebab               {:mvn/version "0.4.0"}}
 
- :paths   ["src/clj" "src/cljs" "resources" "target"]
+ :paths   ["src" "resources" "target"]
 
  :aliases {:dev  {:main-opts  ["-m" "figwheel.main" "-b" "dev" "-r"]
                   :extra-deps {figwheel-pushstate-server {:mvn/version "0.1.2"}}}

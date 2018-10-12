@@ -1,4 +1,4 @@
-^{:npm {:bundles {"dist/bundle.production.js" "src/js/index.js"}}}
+^{:npm {:bundles {"dist/bundle.production.js" "src/index.js"}}}
 {:main            miles-events.core
  :optimizations   :advanced
  :closure-defines {goog.DEBUG false}}
