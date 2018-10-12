@@ -44,11 +44,11 @@
               :class   (:toolbar-title classes)}
              "Miles Events"]
             [ui/button
-             {:href (routes/url-for ::routes/home)
+             {:href  (routes/url-for ::routes/home)
               :color :inherit}
              "Home"]
             [ui/button
-             {:href (routes/url-for ::routes/about)
+             {:href  (routes/url-for ::routes/about)
               :color :inherit}
              "About"]]]
           [(render-view view)]])))])
