@@ -38,4 +38,11 @@
       factory
       r/adapt-react-class)))
 
+(defn color [hue shade]
+  (aget
+    js/MaterialUI
+    "colors"
+    (->camelCaseString hue)
+    (name shade)))
+
 (generate-mui-fns)
