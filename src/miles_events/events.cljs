@@ -7,6 +7,5 @@
 
 (rf/reg-event-db
   ::initialize-db
-  interceptors
   (fn [_ _]
     default-db))
