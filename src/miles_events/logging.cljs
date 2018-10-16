@@ -1,7 +1,6 @@
 (ns miles-events.logging
   (:require
-    [taoensso.timbre :as timbre]
-    [devtools.preload]))
+    [taoensso.timbre :as timbre]))
 
 (def devtools-level->fn
   {:fatal js/console.error
