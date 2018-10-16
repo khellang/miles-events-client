@@ -17,13 +17,13 @@
   (when debug?
     (timbre/info "Running in development mode...")))
 
-(defn mount []
+(defn render []
   (r/render [app/render]
     (dom/getElement "app")))
 
 (defn ^:after-load re-render []
   (rf/clear-subscription-cache!)
-  (mount))
+  (render))
 
 (defonce start-up
   (do
@@ -31,5 +31,4 @@
     (rf/dispatch-sync [::events/initialize-db])
     (dev-setup)
     (routes/init)
-    (mount)
-    true))
+    (render)))
