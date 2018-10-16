@@ -18,8 +18,9 @@
    :rate-limit nil
    :output-fn  nil
    :fn         (fn [data]
-                 (let [{:keys [level ?ns-str ?line vargs_]} data
-                       vargs (list* (str ?ns-str ":" ?line) (force vargs_))
+                 (let [{:keys [level ?ns-str ?line instant vargs_]} data
+                       timestamp (-> instant .toTimeString (.split " ") (aget 0))
+                       vargs (list* (str "[" timestamp "]") (str ?ns-str ":" ?line) (force vargs_))
                        f (devtools-level->fn level js/console.log)]
                    (.apply f js/console (to-array vargs))))})
 
