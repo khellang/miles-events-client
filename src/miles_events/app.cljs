@@ -10,12 +10,10 @@
 (defmulti render-view identity)
 
 (defmethod render-view :home []
-  (fn []
-    [:h1 [icons/home] " Home"]))
+  [:h1 [icons/home] " Home"])
 
 (defmethod render-view :about []
-  (fn []
-    [:h1 "About"]))
+  [:h1 "About"])
 
 (def theme
   (ui/create-mui-theme
@@ -52,4 +50,4 @@
              {:href  (routes/url-for ::routes/about)
               :color :inherit}
              "About"]]]
-          [(render-view view)]])))])
+          (render-view view)])))])
