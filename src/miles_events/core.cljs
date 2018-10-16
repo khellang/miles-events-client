@@ -1,7 +1,9 @@
 (ns ^:figwheel-hooks miles-events.core
   (:require
     [miles-events.routes.core :as routes]
+    [miles-events.logging :as logging]
     [miles-events.events :as events]
+    [taoensso.timbre :as timbre]
     [miles-events.app :as app]
     [re-frame.core :as rf]
     [reagent.core :as r]
@@ -9,10 +11,11 @@
 
 (def debug? ^boolean goog.DEBUG)
 
+(def log-level (if debug? :debug :warn))
+
 (defn dev-setup []
   (when debug?
-    (enable-console-print!)
-    (println "Running in development mode...")))
+    (timbre/info "Running in development mode...")))
 
 (defn mount []
   (r/render [app/render]
@@ -24,6 +27,7 @@
 
 (defonce start-up
   (do
+    (logging/initialize {:level log-level})
     (rf/dispatch-sync [::events/initialize-db])
     (dev-setup)
     (routes/init)
