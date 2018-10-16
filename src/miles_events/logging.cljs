@@ -24,7 +24,7 @@
                        f (devtools-level->fn level js/console.log)]
                    (.apply f js/console (to-array vargs))))})
 
-(defn initialize [{:keys [level]}]
+(defn init [{:keys [level]}]
   (timbre/merge-config! (merge {:level (keyword level)}
                           (when (= "Google Inc." js/navigator.vendor)
                             {:appenders {:console devtools-appender}}))))

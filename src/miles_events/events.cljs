@@ -9,3 +9,9 @@
   ::initialize-db
   (fn [_ _]
     default-db))
+
+(rf/reg-event-fx
+  ::login-success
+  ;; TODO(khellang): Use cofx to get redirect path and redirect.
+  (fn [{:keys [db]} [_ user]]
+    {:db (assoc db :user user)}))

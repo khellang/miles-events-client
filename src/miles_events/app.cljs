@@ -1,16 +1,35 @@
 (ns miles-events.app
   (:require
+    [camel-snake-kebab.core :refer [->kebab-case-keyword]]
+    [camel-snake-kebab.extras :refer [transform-keys]]
     [miles-events.routes.subs :as route-subs]
     [miles-events.material-ui.icons :as icons]
     [miles-events.material-ui.core :as ui]
     [miles-events.routes.core :as routes]
+    [miles-events.events :as events]
+    [miles-events.subs :as subs]
+    [taoensso.timbre :as timbre]
     [re-frame.core :as rf]
-    [reagent.core :as r]))
+    [reagent.core :as r]
+    [google-login]))
+
+(def google-login (r/adapt-react-class js/GoogleLogin))
 
 (defmulti render-view identity)
 
 (defmethod render-view :home []
-  [:h1 [icons/home] " Home"])
+  [:<>
+   [:h1 [icons/home] " Home"]
+   [google-login {:client-id     "618888275073-4mat6pbe42e0lvk5pt4bpqt17vf308dm.apps.googleusercontent.com"
+                  :hosted-domain "miles.no"
+                  :on-success    (fn [result]
+                                   (let [profile (->> result
+                                                   (.-profileObj)
+                                                   (js->clj)
+                                                   (transform-keys ->kebab-case-keyword))
+                                         token (.-tokenId result)]
+                                     (rf/dispatch [::events/login-success (assoc profile :token token)])))
+                  :on-failure    #(timbre/error %)}]])
 
 (defmethod render-view :about []
   [:h1 "About"])
@@ -28,7 +47,8 @@
 (defn render []
   [(ui/with-styles styles
      (fn [{:keys [classes]}]
-       (let [view @(rf/subscribe [::route-subs/active-view])]
+       (let [view @(rf/subscribe [::route-subs/active-view])
+             user @(rf/subscribe [::subs/user])]
          [ui/mui-theme-provider
           {:theme theme}
           [ui/css-baseline]
@@ -49,5 +69,9 @@
             [ui/button
              {:href  (routes/url-for ::routes/about)
               :color :inherit}
-             "About"]]]
+             "About"]
+            (when user
+              [ui/avatar
+               {:alt (:name user)
+                :src (:image-url user)}])]]
           (render-view view)])))])

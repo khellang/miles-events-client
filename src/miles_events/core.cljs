@@ -27,7 +27,7 @@
 
 (defonce start-up
   (do
-    (logging/initialize {:level log-level})
+    (logging/init {:level log-level})
     (rf/dispatch-sync [::events/initialize-db])
     (dev-setup)
     (routes/init)
