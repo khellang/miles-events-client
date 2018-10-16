@@ -1,6 +1,7 @@
 (ns miles-events.app
   (:require
     [miles-events.routes.subs :as route-subs]
+    [miles-events.material-ui.icons :as icons]
     [miles-events.material-ui.core :as ui]
     [miles-events.routes.core :as routes]
     [re-frame.core :as rf]
@@ -10,7 +11,7 @@
 
 (defmethod render-view :home []
   (fn []
-    [:h1 "Home"]))
+    [:h1 [icons/home] " Home"]))
 
 (defmethod render-view :about []
   (fn []
