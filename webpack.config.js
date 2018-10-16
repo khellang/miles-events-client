@@ -3,8 +3,9 @@ module.exports = (env, argv) => {
     return {
         mode: mode,
         entry: './src/index.js',
-        output: {
-            filename: `bundle.${mode}.js`
-        }
+        // We don't really care about size limits etc
+        // because we pipe through Google Closure anyway.
+        performance: { hints: false },
+        output: { filename: `bundle.${mode}.js` }
     };
 };
