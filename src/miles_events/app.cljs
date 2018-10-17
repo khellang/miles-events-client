@@ -76,7 +76,7 @@
             {:href  (routes/url-for ::routes/about)
              :color :inherit}
             "About"]
-           (when user
+           (when @user
              [ui/avatar
               {:alt   (:name @user)
                :class (:avatar classes)

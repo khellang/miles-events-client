@@ -43,6 +43,6 @@
     js/MaterialUI
     "colors"
     (->camelCaseString hue)
-    (name shade)))
+    (str shade)))
 
 (generate-mui-fns)
